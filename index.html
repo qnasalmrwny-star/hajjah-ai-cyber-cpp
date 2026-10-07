@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>المكتبة الملكية لأكواد C++ | الذكاء الاصطناعي والأمن السيبراني</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Cairo:wght@400;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,700;1,700&family=Cairo:wght@400;600;700;800&display=swap');
 
         :root {
             --bg-color: #fdfbf7;
@@ -46,62 +46,91 @@
             flex-direction: column;
         }
 
-        .main-header {
+        /* البانر الملكي العلوي (لوحة الشرف) */
+        .royal-banner {
+            background: linear-gradient(135deg, #ffffff 0%, #fffdf8 50%, #faf3e0 100%);
+            border: 2px solid var(--gold-primary);
+            border-radius: 16px;
+            padding: 20px 15px;
             text-align: center;
             margin-bottom: 25px;
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.15), inset 0 0 15px rgba(255, 255, 255, 0.8);
             position: relative;
         }
 
-        .royal-badge {
-            font-size: 2rem;
-            margin-bottom: 5px;
-            display: inline-block;
-            filter: drop-shadow(0 2px 6px rgba(212, 175, 55, 0.4));
+        .royal-crown-badge {
+            font-size: 2.2rem;
+            margin-bottom: 2px;
+            filter: drop-shadow(0 4px 8px rgba(212, 175, 55, 0.4));
         }
 
-        .gold-gradient-text {
+        .gold-title-large {
             background: linear-gradient(135deg, #8a6218 0%, #d4af37 35%, #b38728 70%, #704c0d 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             font-family: 'Amiri', serif;
-            font-size: 1.7rem;
+            font-size: 1.8rem;
             font-weight: 700;
-        }
-
-        .main-header p {
-            color: #7a6e60;
-            font-size: 0.9rem;
-            margin-top: 5px;
+            margin-bottom: 8px;
         }
 
         .royal-divider {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 12px;
             margin: 10px 0;
             color: var(--gold-primary);
-            font-size: 0.85rem;
+            font-size: 0.9rem;
         }
 
         .royal-divider::before, .royal-divider::after {
             content: '';
-            height: 1px;
-            width: 70px;
+            height: 2px;
+            width: 90px;
             background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
         }
 
-        /* الواجهة الفرعية (القائمة الجانبية العمودية على اليسار) */
+        /* أسماء المهندس والدكتور بالخط الكبيرة والزخرفة الملكية */
+        .author-card {
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            align-items: center;
+        }
+
+        .author-name {
+            font-family: 'Amiri', serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1f1a14;
+            background: rgba(212, 175, 55, 0.1);
+            padding: 4px 20px;
+            border-radius: 30px;
+            border: 1px solid var(--gold-border);
+            display: inline-block;
+        }
+
+        .supervisor-name {
+            font-family: 'Amiri', serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--gold-dark);
+            margin-top: 2px;
+        }
+
+        /* الواجهة الفرعية (القائمة الجانبية العمودية) */
         .sidebar {
-            width: 170px;
-            min-width: 140px;
-            max-width: 190px;
+            width: 210px;
+            min-width: 170px;
+            max-width: 230px;
             background-color: var(--sidebar-bg);
             padding: 18px 10px;
             box-shadow: -4px 0 20px rgba(180, 140, 40, 0.12);
             overflow-y: auto;
             border-right: 2px solid var(--gold-border);
-            order: 2; /* وضعها على اليسار في الواجهة العربية */
+            order: 2;
             display: flex;
             flex-direction: column;
         }
@@ -113,7 +142,7 @@
             border-bottom: 2px solid var(--gold-border);
             padding-bottom: 10px;
             margin-bottom: 15px;
-            font-size: 1.05rem;
+            font-size: 1.1rem;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -132,7 +161,7 @@
             cursor: pointer;
             text-align: center;
             font-size: 0.85rem;
-            font-weight: 600;
+            font-weight: 700;
             transition: all 0.3s ease;
             white-space: nowrap;
             overflow: hidden;
@@ -177,7 +206,7 @@
 
         .code-title {
             color: var(--gold-light);
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             font-weight: bold;
             display: flex;
             align-items: center;
@@ -192,7 +221,7 @@
             color: #f7f0d4;
             overflow-x: auto;
             font-size: 0.92rem;
-            line-height: 1.5;
+            line-height: 1.6;
         }
 
         .copy-btn {
@@ -215,41 +244,41 @@
 
         .explanation-box {
             background-color: var(--card-bg);
-            padding: 20px;
+            padding: 22px;
             border-radius: 12px;
-            border-right: 4px solid var(--gold-primary);
-            line-height: 1.7;
-            font-size: 0.92rem;
+            border-right: 5px solid var(--gold-primary);
+            line-height: 1.8;
+            font-size: 0.95rem;
             border: 1px solid var(--gold-border);
             box-shadow: 0 6px 20px rgba(212, 175, 55, 0.08);
             position: relative;
         }
 
-        .explanation-box::before {
-            content: '📜';
-            position: absolute;
-            left: 15px;
-            top: 15px;
-            font-size: 1.2rem;
-            opacity: 0.5;
+        .explanation-box h3 {
+            color: var(--gold-dark);
+            font-family: 'Amiri', serif;
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+            border-bottom: 1px dashed var(--gold-border);
+            padding-bottom: 5px;
         }
 
         .welcome-message {
             text-align: center;
-            margin-top: 15%;
-            padding: 30px;
+            margin-top: 5%;
+            padding: 35px;
             background: #ffffff;
             border-radius: 15px;
             border: 1px dashed var(--gold-border);
             box-shadow: 0 4px 15px rgba(0,0,0,0.03);
             color: #665b4e;
-            font-size: 1rem;
+            font-size: 1.05rem;
         }
 
         /* تحسين العرض للهواتف المحمولة */
         @media (max-width: 600px) {
             .sidebar {
-                width: 130px;
+                width: 140px;
                 padding: 12px 5px;
             }
             .lesson-btn {
@@ -257,13 +286,19 @@
                 padding: 9px 4px;
             }
             .main-content {
-                padding: 15px;
+                padding: 12px;
             }
-            .gold-gradient-text {
-                font-size: 1.3rem;
+            .gold-title-large {
+                font-size: 1.35rem;
+            }
+            .author-name {
+                font-size: 1.1rem;
+            }
+            .supervisor-name {
+                font-size: 1rem;
             }
             pre {
-                font-size: 0.85rem;
+                font-size: 0.82rem;
             }
         }
     </style>
@@ -272,52 +307,156 @@
 
     <!-- الواجهة الرئيسية (على اليمين) -->
     <div class="main-content">
-        <div class="main-header">
-            <div class="royal-badge">👑</div>
-            <h1 class="gold-gradient-text">المكتبة الملكية - C++</h1>
-            <div class="royal-divider">✦ ✨ ✦</div>
-            <p>منصة طلاب الذكاء الاصطناعي والأمن السيبراني</p>
+        
+        <!-- البانر التكريمي الملكي -->
+        <div class="royal-banner">
+            <div class="royal-crown-badge">👑</div>
+            <h1 class="gold-title-large">المكتبة البرمجية الملكية بلغة C++</h1>
+            
+            <div class="author-card">
+                <div class="author-name">✨ تم إعداد هذا الموقع من قبل المهندس / يوسف وليد المروني ✨</div>
+                <div class="supervisor-name">👑 تحت إشراف الدكتور / هيثم حمزة 👑</div>
+            </div>
+
+            <div class="royal-divider">✦ 💎 مرجع طلاب الذكاء الاصطناعي والأمن السيبراني 💎 ✦</div>
         </div>
 
+        <!-- منطقة عرض الدرس -->
         <div id="contentArea">
             <div class="welcome-message" id="welcomeMsg">
-                👑 مرحباً بكم في المكتبة الملكية لأكواد C++<br>
-                <small style="color: #a08a6e; margin-top: 8px; display: inline-block;">👈 اختر درساً من القائمة الجانبية لعرض الكود والشرح التفصيلي.</small>
+                👑 <b>أهلاً بكم في المرجع الملكي الشامل لتعلم برمجيات C++ من الصفر.</b><br>
+                <small style="color: #a08a6e; margin-top: 10px; display: inline-block;">👈 اختر درساً من القائمة الجانبية لعرض الكود والشرح التفصيلي الدقيق.</small>
             </div>
             
             <div id="lessonContent" style="display: none;">
                 <div class="code-container">
                     <div class="code-header">
                         <span class="code-title">👑 C++ Source Code</span>
-                        <button class="copy-btn" onclick="copyCode()">✨ نسخ الكود</button>
+                        <button class="copy-btn" onclick="copyCode()">✨ نسخ الكود جاهزاً</button>
                     </div>
                     <pre><code id="codeBlock"></code></pre>
                 </div>
                 <div class="explanation-box" id="explanationBlock">
-                    <!-- الشرح سيظهر هنا -->
+                    <!-- الشرح الشامل سيظهر هنا -->
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- الواجهة الفرعية الملكية (عمودية على اليسار) -->
+    <!-- الواجهة الفرعية (القائمة الجانبية المترتبة) -->
     <div class="sidebar">
-        <h2>👑 الأكواد</h2>
+        <h2>👑 الفهرس البرمجي</h2>
         <div id="buttonsList"></div>
     </div>
 
     <script>
-        // منطقة الدروس والأكواد
+        // منهجية أكواد C++ الشاملة والمنظمة بالترتيب الأكاديمي للمبتدئين
         const lessons = {
             "lesson1": {
-                title: "الهيكل الأساسي",
-                code: "#include <iostream>\nusing namespace std;\n\nint main() {\n    // الكود يكتب هنا\n    return 0;\n}",
-                explanation: "<b>👑 الهيكل الأساسي للبرنامج:</b><br>- <b>#include &lt;iostream&gt;</b>: مكتبة الإدخال والإخراج.<br>- <b>using namespace std;</b>: اختصار أوامر المكتبة القياسية.<br>- <b>int main()</b>: دالة التنفيذ الرئيسية للبرنامج."
+                title: "1. الهيكل الأساسي",
+                code: "#include <iostream>\nusing namespace std;\n\nint main() {\n    // هنا يكتب الكود البرمجي الرئيسي\n    return 0;\n}",
+                explanation: "<h3>📜 الشرح التفصيلي للهيكل الأساسي:</h3>" +
+                    "<b>1. #include &lt;iostream&gt;:</b> تُسمى (Header File). وظيفتها استدعاء مكتبة الإدخال والإخراج القياسية في C++، والتي تتضمن أصل الأوامر مثل <code>cout</code> و <code>cin</code>.<br>" +
+                    "<b>2. using namespace std;:</b> تعني استخدام 'نطاق الأسماء القياسي'، وتفيدنا حتى لا نضطر لكتابة <code>std::cout</code> قبل كل أمر طباعة.<br>" +
+                    "<b>3. int main():</b> هي الدالة الرئيسية (Main Function) التي يبدأ معالج الكمبيوتر بتنفيذ الأوامر من عندها حتماً.<br>" +
+                    "<b>4. { }:</b> أقواس البداية والنهاية للدالة المباشرة، ويُكتب الكود البرمجي بينهما.<br>" +
+                    "<b>5. return 0;:</b> تعني إرجاع القيمة صفر للنظام، وتخبر نظام التشغيل بأن البرنامج انتهى وعمل بنجاح دون أي أخطاء."
             },
             "lesson2": {
-                title: "جملة الطباعة",
-                code: "#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << \"Hello AI & Cyber Security Students!\" << endl;\n    return 0;\n}",
-                explanation: "<b>👑 جملة الطباعة cout:</b><br>- <b>cout</b>: تستخدم لعرض النصوص والنتائج على الشاشة.<br>- <b>endl</b>: للنزول إلى سطر جديد."
+                title: "2. جملة الطباعة cout",
+                code: "#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << \"مرحباً بكم في قسم الذكاء الاصطناعي!\" << endl;\n    cout << \"C++ Programming is Easy.\" << endl;\n    return 0;\n}",
+                explanation: "<h3>📜 الشرح التفصيلي لجملة الطباعة:</h3>" +
+                    "<b>1. cout:</b> هي اختصار لـ (Character Output)، وهي الكائن المسؤول عن إخراج وطبع النصوص والأرقام والنتائج على الشاشة.<br>" +
+                    "<b>2. عامل الإخراج &lt;&lt;:</b> يُسمى (Insertion Operator)، ويوجه البيانات من اليمين لتخرج على الشاشة جهة اليسار.<br>" +
+                    "<b>3. علامات التنصيص المزدوجة \" \":</b> أي نص نضعه بينهما يتم طباعته على الشاشة حرفياً كما هو.<br>" +
+                    "<b>4. endl:</b> اختصار لـ (End Line)، ووظيفتها إنهاء السطر الحالي والنزول لسطر جديد للطباعة تحته.<br>" +
+                    "<b>5. الفاصلة المنقوطة ( ; ):</b> أساسية جداً في C++، وتوضع في نهاية كل أمر برمجي لإنهاء السطر."
+            },
+            "lesson3": {
+                title: "3. المتغيرات والداتا",
+                code: "#include <iostream>\nusing namespace std;\n\nint main() {\n    int age = 20;            // عدد صحيح\n    double gpa = 3.85;       // عدد عشري بفرزات\n    char grade = 'A';        // حرف واحد فقط\n    string name = \"يوسف\";    // نص كامل\n    bool isPassed = true;    // قيمة منطقية (صح أم خطأ)\n\n    cout << \"الاسم: \" << name << endl;\n    cout << \"العمر: \" << age << \" سنة\" << endl;\n    cout << \"المعدل: \" << gpa << endl;\n    return 0;\n}",
+                explanation: "<h3>📜 الشرح التفصيلي للمتغيرات وأنواع البيانات:</h3>" +
+                    "<b>المتغيرات (Variables):</b> هي حيازات ومساحات محجوزة في ذاكرة الرام (RAM) لتخزين البيانات.<br>" +
+                    "• <b>int:</b> لتخزين الأرقام الصحيحة فقط بدون كسور مثل <code>10, 20, -5</code>.<br>" +
+                    "• <b>double:</b> لتخزين الأرقام العشرية التي تحتوي على فاصلة مثل <code>3.85, 99.9</code>.<br>" +
+                    "• <b>char:</b> لتخزين حرف أو رمز واحد فقط ويوضع بين علامتي تنصيص مفردة <code>'A'</code>.<br>" +
+                    "• <b>string:</b> لتخزين السلاسل النصية الكاملة وتوضع بين علامتي تنصيص مزدوجة <code>\"يوسف\"</code>.<br>" +
+                    "• <b>bool:</b> لتخزين القيم المنطقية فقط وهي إما صح <code>true</code> أو خطأ <code>false</code>."
+            },
+            "lesson4": {
+                title: "4. استقبال البيانات cin",
+                code: "#include <iostream>\nusing namespace std;\n\nint main() {\n    int number;\n    cout << \"أدخل رقماً صحيحاً: \";\n    cin >> number; // قراءة الرقم من المستخدم\n    \n    cout << \"الرقم الذي أدخلته هو: \" << number << endl;\n    return 0;\n}",
+                explanation: "<h3>📜 الشرح التفصيلي لعملية الإدخال cin:</h3>" +
+                    "<b>1. cin:</b> اختصار لـ (Character Input)، وهي المسؤول الأول عن قراءة واستقبال الإدخالات التي يكتبها المستخدم عبر لوحة المفاتيح.<br>" +
+                    "<b>2. عامل الإدخال &gt;&gt;:</b> يُسمى (Extraction Operator)، ويتجه من اليسار إلى اليمين ليأخذ القيمة المدخلة ويضعها داخل المتغير المخزن في الذاكرة.<br>" +
+                    "<b>3. تسلسل الأوامر:</b> يفضل دائماً إظهار رسالة توضيحية لليوزر باستخدام <code>cout</code> قبل أمر <code>cin</code> لإخباره بما ينبغي عليه كتابته."
+            },
+            "lesson5": {
+                title: "5. العمليات الحسابية",
+                code: "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a = 10, b = 3;\n    \n    cout << \"الجمع: \" << (a + b) << endl;\n    cout << \"الطرح: \" << (a - b) << endl;\n    cout << \"الضرب: \" << (a * b) << endl;\n    cout << \"القسمة الصحيحة: \" << (a / b) << endl;\n    cout << \"باقي القسمة (Modulus): \" << (a % b) << endl;\n    return 0;\n}",
+                explanation: "<h3>📜 الشرح التفصيلي للعمليات الحسابية:</h3>" +
+                    "• <b>الجمع والطرح والضرب (+ , - , *):</b> تعمل بشكل اعتيادي تماماً كما في الرياضيات.<br>" +
+                    "• <b>القسمة (/):</b> عند قسمة عددين صحيحين مثل <code>10 / 3</code> في C++ تكون النتيجة <code>3</code> فقط ويتم إهمال الكسور لأن نوع البيانات صحيح <code>int</code>.<br>" +
+                    "• <b>باقي القسمة (%):</b> تُسمى (Modulus)، وتستخرج المتبقي بعد القسمة. مثلاً باقي قسمة 10 على 3 هو <code>1</code>. مفيدة جداً لمعرفة الأرقام الزوجية والفردية."
+            },
+            "lesson6": {
+                title: "6. الشروط if - else",
+                code: "#include <iostream>\nusing namespace std;\n\nint main() {\n    int mark = 85;\n    \n    if (mark >= 50) {\n        cout << \"مبروك! أنت ناجح ✨\" << endl;\n    } else {\n        cout << \"للأسف أنت راسب ❌\" << endl;\n    }\n    return 0;\n}",
+                explanation: "<h3>📜 الشرح التفصيلي للجمل الشرطية:</h3>" +
+                    "<b>1. if (الشرط):</b> يفحص الكمبيوتر الشرط بين القوسين، وإذا كانت القيمة صحيحة <code>true</code> يتم تنفيذ الأكواد الموجودة داخل بلوك أقواس <code>if</code>.<br>" +
+                    "<b>2. else:</b> تعني 'وإلا'، وفي حال كان الشرط في <code>if</code> غير صحيح <code>false</code>، سيتجاهل الكمبيوتر الجزء الأول وينتقل فوراً لتنفيذ أكواد <code>else</code>.<br>" +
+                    "<b>3. عوامل المقارنة:</b> تشمل <code>&gt;=</code> (أكبر من أو يساوي)، <code>&lt;=</code> (أصغر من أو يساوي)، <code>==</code> (تساوي تماماً)، و <code>!=</code> (لا تساوي)."
+            },
+            "lesson7": {
+                title: "7. الخيارات switch",
+                code: "#include <iostream>\nusing namespace std;\n\nint main() {\n    int option = 2;\n    \n    switch(option) {\n        case 1:\n            cout << \"اخترت الخيار الأول\" << endl;\n            break;\n        case 2:\n            cout << \"اخترت الخيار الثاني\" << endl;\n            break;\n        default:\n            cout << \"خيار غير معروف\" << endl;\n    }\n    return 0;\n}",
+                explanation: "<h3>📜 الشرح التفصيلي لجملة switch:</h3>" +
+                    "<b>1. switch:</b> تستخدم عندما يكون لديك عدة حالات محددة للاختيار بينها بدلاً من كتابة عدة جمل <code>if - else</code> متعددة.<br>" +
+                    "<b>2. case:</b> يمثل القيمة المحتملة للمتغير، وفي حال تطابق المتغير مع القيمة يتم تنفيذ السطور التابعة له.<br>" +
+                    "<b>3. break:</b> مهمة جداً! توقف تنفيذ باقي الحالات وتخرج فوراً من جملة <code>switch</code>.<br>" +
+                    "<b>4. default:</b> تنفذ فقط إذا لم تطابق القيمة أي حالة من حالات <code>case</code> المذكورة."
+            },
+            "lesson8": {
+                title: "8. التكرار for loop",
+                code: "#include <iostream>\nusing namespace std;\n\nint main() {\n    // طباعة الأعداد من 1 إلى 5\n    for (int i = 1; i <= 5; i++) {\n        cout << \"العداد الان: \" << i << endl;\n    }\n    return 0;\n}",
+                explanation: "<h3>📜 الشرح التفصيلي لحلقة التكرار for:</h3>" +
+                    "تتكون حلقة <b>for</b> من 3 أجزاء رئيسية بين الأقواس يفصل بينها بالفاصلة المنقوطة <code>;</code>:<br>" +
+                    "<b>1. التهيئة (int i = 1):</b> نحدد متغير العداد ونعطيه قيمة البداية.<br>" +
+                    "<b>2. الشرط (i &lt;= 5):</b> طالما هذا الشرط صحيح، ستستمر الحلقة في التكرار ولن تتوقف إلا إذا أصبح خطأ.<br>" +
+                    "<b>3. الخطوة (i++):</b> تعني زيادة العداد بمقدار 1 في كل دورة تكرارية."
+            },
+            "lesson9": {
+                title: "9. التكرار while loop",
+                code: "#include <iostream>\nusing namespace std;\n\nint main() {\n    int count = 1;\n    \n    while (count <= 3) {\n        cout << \"تكرار رقم: \" << count << endl;\n        count++; // زيادة العداد\n    }\n    return 0;\n}",
+                explanation: "<h3>📜 الشرح التفصيلي لحلقة while:</h3>" +
+                    "<b>1. while (الشرط):</b> تفحص الشرط أولاً، وطالما القيمة صحيحة تقوم بتكرار الأكواد الداخلية باستمرار.<br>" +
+                    "<b>2. زيادة العداد (count++):</b> يجب كتابتها داخل الحلقة لزيادة القيمة حتى يختل الشرط وتتوقف الحلقة؛ وإلا سنقع في مشكلة 'الحلقة اللانهائية' (Infinite Loop) وينغلق البرنامج."
+            },
+            "lesson10": {
+                title: "10. المصفوفات Arrays",
+                code: "#include <iostream>\nusing namespace std;\n\nint main() {\n    // مصفوفة تحتوي على 3 درجات\n    int scores[3] = {90, 85, 95};\n    \n    cout << \"الدرجة الأولى: \" << scores[0] << endl;\n    cout << \"الدرجة الثانية: \" << scores[1] << endl;\n    return 0;\n}",
+                explanation: "<h3>📜 الشرح التفصيلي للمصفوفات (Arrays):</h3>" +
+                    "<b>1. المفهوم:</b> هي متغير واحد يستطيع تخزين مجموعة من القيم من نفس نوع البيانات في مكان متصل بالذاكرة.<br>" +
+                    "<b>2. الحجم [3]:</b> الرقم بين القوسين المربعين يحدد عدد العناصر الكلي التي تستطيع المصفوفة استيعابها.<br>" +
+                    "<b>3. الفهرس (Index):</b> تبدأ عناصر المصفوفات في C++ دائماً من الفهرس صفر <code>scores[0]</code> للوصول للأنصر الأول، و <code>scores[1]</code> للوصول للعنصر الثاني وهكذا."
+            },
+            "lesson11": {
+                title: "11. الدوال Functions",
+                code: "#include <iostream>\nusing namespace std;\n\n// تعريف دالة تقوم بحساب المجموع\nint add(int a, int b) {\n    return a + b;\n}\n\nint main() {\n    int result = add(5, 10); // استدعاء الدالة\n    cout << \"مجموع الرقمين = \" << result << endl;\n    return 0;\n}",
+                explanation: "<h3>📜 الشرح التفصيلي للدوال (Functions):</h3>" +
+                    "<b>1. فائدة الدوال:</b> تمنع تكرار الأكواد، حيث نكتب كود الميزة مرة واحدة ونقوم باستدعائه وقتما تشاء.<br>" +
+                    "<b>2. نوع الإرجاع (int):</b> يحدد نوع القيمة التي سترجعها الدالة بعد تنفيذها.<br>" +
+                    "<b>3. البرامترات (int a, int b):</b> هي المتغيرات المستقبلة للقيم بين الأقواس لكي تعمل عليها الدالة.<br>" +
+                    "<b>4. الاستدعاء:</b> يتم كتابة اسم الدالة بين القوسين القيمة المطلوب إرسالها داخل دالة <code>main</code>."
+            },
+            "lesson12": {
+                title: "12. المؤشرات Pointers",
+                code: "#include <iostream>\nusing namespace std;\n\nint main() {\n    int var = 20;\n    int* ptr = &var; // مؤشر يشير إلى عنوان var في الذاكرة\n    \n    cout << \"قيمة المتغير: \" << var << endl;\n    cout << \"عنوان المتغير في RAM: \" << ptr << endl;\n    cout << \"القيمة عبر المؤشر: \" << *ptr << endl;\n    return 0;\n}",
+                explanation: "<h3>📜 الشرح التفصيلي للمؤشرات (Pointers):</h3>" +
+                    "<b>1. المؤشر (Pointer):</b> متغير خاص يخزن عنوان مكان متغير آخر في ذاكرة الحساب (RAM) بدلاً من القيمة المباشرة.<br>" +
+                    "<b>2. النجمة (*):</b> تستخدم عند الإعلان عن مؤشر <code>int* ptr</code>.<br>" +
+                    "<b>3. المعامل (&):</b> يُسمى (Address-of Operator)، ويستخدم لاستخراج العنوان السداسي عشر للمتغير في الذاكرة.<br>" +
+                    "<b>4. جلب القيمة (*ptr):</b> وضع النجمة قبل اسم المؤشر عند الطباعة يجلب القيمة الفعلية المخزنة في ذلك العنوان."
             }
         };
 
@@ -328,6 +467,7 @@
         const explanationBlock = document.getElementById('explanationBlock');
         let currentCode = "";
 
+        // توليد أزرار الدروس بالترتيب
         for (const key in lessons) {
             const btn = document.createElement('button');
             btn.className = 'lesson-btn';
@@ -364,4 +504,3 @@
     </script>
 </body>
 </html>
-<!-- v2 royal update -->
