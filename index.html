@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مكتبة أكواد C++ | جامعة حجة</title>
+    <style>
+        :root {
+            --bg-color: #121212;
+            --sidebar-bg: #1e1e1e;
+            --primary-color: #9d4edd; /* لون بنفسجي فاخر */
+            --text-color: #e0e0e0;
+            --code-bg: #2d2d2d;
+            --hover-color: #7b2cbf;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* تنسيق الواجهة الفرعية (القائمة الجانبية) */
+        .sidebar {
+            width: 250px;
+            background-color: var(--sidebar-bg);
+            padding: 20px;
+            box-shadow: -2px 0 10px rgba(0,0,0,0.5);
+            overflow-y: auto;
+            border-left: 2px solid var(--primary-color);
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            color: var(--primary-color);
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .lesson-btn {
+            display: block;
+            width: 100%;
+            background-color: transparent;
+            color: var(--text-color);
+            border: 1px solid #444;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: right;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .lesson-btn:hover, .lesson-btn.active {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+            transform: translateX(-5px);
+        }
+
+        /* تنسيق الواجهة الرئيسية */
+        .main-content {
+            flex: 1;
+            padding: 40px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .main-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .main-header h1 {
+            color: var(--primary-color);
+            margin: 0;
+        }
+
+        .main-header p {
+            color: #888;
+        }
+
+        /* تنسيق مربع الكود */
+        .code-container {
+            background-color: var(--code-bg);
+            border-radius: 10px;
+            padding: 20px;
+            position: relative;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            border: 1px solid #444;
+        }
+
+        pre {
+            margin: 0;
+            direction: ltr;
+            text-align: left;
+            font-family: 'Courier New', Courier, monospace;
+            color: #a6e22e; /* لون كود مريح */
+            overflow-x: auto;
+            font-size: 1.1rem;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            left: 10px; /* يسار لأن النص إنجليزي */
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .copy-btn:hover {
+            background-color: var(--hover-color);
+        }
+
+        /* تنسيق الشرح */
+        .explanation-box {
+            background-color: var(--sidebar-bg);
+            padding: 20px;
+            border-radius: 10px;
+            border-right: 4px solid var(--primary-color);
+            line-height: 1.6;
+            font-size: 1.1rem;
+        }
+
+        /* رسالة البداية */
+        .welcome-message {
+            text-align: center;
+            margin-top: 20%;
+            font-size: 1.5rem;
+            color: #666;
+        }
+
+        /* استجابة للهواتف */
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: auto;
+                height: 200px;
+                border-left: none;
+                border-bottom: 2px solid var(--primary-color);
+            }
+            .main-content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- الواجهة الفرعية (القائمة الجانبية) -->
+    <div class="sidebar">
+        <h2>أكواد C++</h2>
+        <div id="buttonsList">
+            <!-- الأزرار ستضاف هنا تلقائياً -->
+        </div>
+    </div>
+
+    <!-- الواجهة الرئيسية -->
+    <div class="main-content">
+        <div class="main-header">
+            <h1>مكتبة الذكاء الاصطناعي - C++</h1>
+            <p>اختر موضوعاً من القائمة لعرض الكود والشرح</p>
+        </div>
+
+        <div id="contentArea">
+            <div class="welcome-message" id="welcomeMsg">
+                يرجى اختيار كود من القائمة الجانبية لبدء التعلم.
+            </div>
+            
+            <div id="lessonContent" style="display: none;">
+                <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode()">نسخ الكود</button>
+                    <pre><code id="codeBlock"></code></pre>
+                </div>
+                <div class="explanation-box" id="explanationBlock">
+                    <!-- الشرح سيظهر هنا -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- كود الجافاسكربت لعمل الموقع -->
+    <script>
+        // ======= منطقة إضافة الدروس =======
+        // أضف دروسك هنا بنفس الطريقة
+        
+        const lessons = {
+            "lesson1": {
+                title: "الهيكل الأساسي - Main",
+                code: "#include <iostream>\nusing namespace std;\n\nint main() {\n    // الكود يكتب هنا\n    return 0;\n}",
+                explanation: "هذا هو الهيكل الأساسي لأي برنامج بلغة C++.<br>- <b>#include &lt;iostream&gt;</b>: تستدعي المكتبة المسؤولة عن الإدخال والإخراج.<br>- <b>using namespace std;</b>: تسهل علينا كتابة الأوامر دون الحاجة لكتابة std:: قبل كل أمر.<br>- <b>int main()</b>: هي الدالة الرئيسية التي يبدأ منها تنفيذ البرنامج."
+            },
+            "lesson2": {
+                title: "جملة الطباعة - cout",
+                code: "#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << \"Hello, AI Students!\" << endl;\n    return 0;\n}",
+                explanation: "يستخدم الأمر <b>cout</b> لطباعة النصوص أو النتائج على الشاشة.<br>- النص المراد طباعته يجب أن يوضع بين علامتي تنصيص مزدوجة \"\".<br>- <b>endl</b>: تستخدم للنزول إلى سطر جديد بعد الطباعة."
+            }
+            // لكي تضيف درساً جديداً، ضع فاصلة بعد القوس أعلاه، ثم انسخ القالب.
+        };
+
+        // ==================================
+        
+        // الأكواد التشغيلية (لا تقم بتعديلها إلا إذا كنت تعرف ما تفعل)
+        const buttonsList = document.getElementById('buttonsList');
+        const welcomeMsg = document.getElementById('welcomeMsg');
+        const lessonContent = document.getElementById('lessonContent');
+        const codeBlock = document.getElementById('codeBlock');
+        const explanationBlock = document.getElementById('explanationBlock');
+        let currentCode = "";
+
+        // توليد الأزرار تلقائياً
+        for (const key in lessons) {
+            const btn = document.createElement('button');
+            btn.className = 'lesson-btn';
+            btn.textContent = lessons[key].title;
+            btn.onclick = () => showLesson(key, btn);
+            buttonsList.appendChild(btn);
+        }
+
+        // عرض الدرس
+        function showLesson(lessonKey, btnElement) {
+            // تفعيل لون الزر
+            document.querySelectorAll('.lesson-btn').forEach(b => b.classList.remove('active'));
+            btnElement.classList.add('active');
+
+            // إخفاء الترحيب وعرض المحتوى
+            welcomeMsg.style.display = 'none';
+            lessonContent.style.display = 'block';
+
+            // وضع البيانات
+            currentCode = lessons[lessonKey].code;
+            codeBlock.textContent = currentCode;
+            explanationBlock.innerHTML = lessons[lessonKey].explanation;
+        }
+
+        // دالة نسخ الكود
+        function copyCode() {
+            navigator.clipboard.writeText(currentCode).then(() => {
+                const btn = document.querySelector('.copy-btn');
+                const originalText = btn.textContent;
+                btn.textContent = 'تم النسخ!';
+                btn.style.backgroundColor = '#4caf50';
+                
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.style.backgroundColor = 'var(--primary-color)';
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
