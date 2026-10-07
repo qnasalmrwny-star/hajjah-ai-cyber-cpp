@@ -3,71 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مكتبة أكواد C++ | جامعة حجة</title>
+    <title>المكتبة الملكية لأكواد C++ | الذكاء الاصطناعي والأمن السيبراني</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Cairo:wght@400;600;700&display=swap');
+
         :root {
-            --bg-color: #121212;
-            --sidebar-bg: #1e1e1e;
-            --primary-color: #9d4edd; /* لون بنفسجي فاخر */
-            --text-color: #e0e0e0;
-            --code-bg: #2d2d2d;
-            --hover-color: #7b2cbf;
+            --bg-color: #fdfbf7;
+            --sidebar-bg: #ffffff;
+            --gold-primary: #d4af37;
+            --gold-dark: #aa771c;
+            --gold-light: #fcf6ba;
+            --gold-border: #e6c875;
+            --text-dark: #2c251e;
+            --code-bg: #141210;
+            --card-bg: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Cairo', 'Segoe UI', Tahoma, sans-serif;
             background-color: var(--bg-color);
-            color: var(--text-color);
-            margin: 0;
+            background-image: radial-gradient(#e2d29b 0.75px, transparent 0.75px);
+            background-size: 24px 24px;
+            color: var(--text-dark);
             display: flex;
             height: 100vh;
             overflow: hidden;
+            direction: rtl;
         }
 
-        /* تنسيق الواجهة الفرعية (القائمة الجانبية) */
-        .sidebar {
-            width: 250px;
-            background-color: var(--sidebar-bg);
-            padding: 20px;
-            box-shadow: -2px 0 10px rgba(0,0,0,0.5);
-            overflow-y: auto;
-            border-left: 2px solid var(--primary-color);
-        }
-
-        .sidebar h2 {
-            text-align: center;
-            color: var(--primary-color);
-            border-bottom: 1px solid #333;
-            padding-bottom: 10px;
-            font-size: 1.2rem;
-        }
-
-        .lesson-btn {
-            display: block;
-            width: 100%;
-            background-color: transparent;
-            color: var(--text-color);
-            border: 1px solid #444;
-            padding: 15px;
-            margin-bottom: 10px;
-            border-radius: 8px;
-            cursor: pointer;
-            text-align: right;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-
-        .lesson-btn:hover, .lesson-btn.active {
-            background-color: var(--primary-color);
-            border-color: var(--primary-color);
-            color: white;
-            transform: translateX(-5px);
-        }
-
-        /* تنسيق الواجهة الرئيسية */
+        /* الواجهة الرئيسية (على اليمين) */
         .main-content {
             flex: 1;
-            padding: 40px;
+            padding: 25px;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
@@ -75,117 +48,249 @@
 
         .main-header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
+            position: relative;
         }
 
-        .main-header h1 {
-            color: var(--primary-color);
-            margin: 0;
+        .royal-badge {
+            font-size: 2rem;
+            margin-bottom: 5px;
+            display: inline-block;
+            filter: drop-shadow(0 2px 6px rgba(212, 175, 55, 0.4));
+        }
+
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #8a6218 0%, #d4af37 35%, #b38728 70%, #704c0d 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-family: 'Amiri', serif;
+            font-size: 1.7rem;
+            font-weight: 700;
         }
 
         .main-header p {
-            color: #888;
+            color: #7a6e60;
+            font-size: 0.9rem;
+            margin-top: 5px;
         }
 
-        /* تنسيق مربع الكود */
+        .royal-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 10px 0;
+            color: var(--gold-primary);
+            font-size: 0.85rem;
+        }
+
+        .royal-divider::before, .royal-divider::after {
+            content: '';
+            height: 1px;
+            width: 70px;
+            background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
+        }
+
+        /* الواجهة الفرعية (القائمة الجانبية العمودية على اليسار) */
+        .sidebar {
+            width: 170px;
+            min-width: 140px;
+            max-width: 190px;
+            background-color: var(--sidebar-bg);
+            padding: 18px 10px;
+            box-shadow: -4px 0 20px rgba(180, 140, 40, 0.12);
+            overflow-y: auto;
+            border-right: 2px solid var(--gold-border);
+            order: 2; /* وضعها على اليسار في الواجهة العربية */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            font-family: 'Amiri', serif;
+            color: var(--gold-dark);
+            border-bottom: 2px solid var(--gold-border);
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .lesson-btn {
+            display: block;
+            width: 100%;
+            background: linear-gradient(145deg, #ffffff, #f7f3e8);
+            color: var(--text-dark);
+            border: 1px solid var(--gold-border);
+            padding: 11px 8px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+        }
+
+        .lesson-btn:hover {
+            border-color: var(--gold-primary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(212, 175, 55, 0.25);
+            background: #fffdf7;
+        }
+
+        .lesson-btn.active {
+            background: linear-gradient(135deg, #bf953f 0%, #d4af37 50%, #aa771c 100%);
+            border-color: #aa771c;
+            color: #ffffff;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(170, 119, 28, 0.35);
+        }
+
+        /* تنسيق مربع الكود والشرح */
         .code-container {
             background-color: var(--code-bg);
-            border-radius: 10px;
-            padding: 20px;
+            border-radius: 12px;
+            padding: 18px;
             position: relative;
             margin-bottom: 20px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-            border: 1px solid #444;
+            border: 2px solid var(--gold-primary);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15), 0 0 15px rgba(212, 175, 55, 0.15);
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px dashed rgba(212, 175, 55, 0.4);
+        }
+
+        .code-title {
+            color: var(--gold-light);
+            font-size: 0.9rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
         pre {
             margin: 0;
             direction: ltr;
             text-align: left;
-            font-family: 'Courier New', Courier, monospace;
-            color: #a6e22e; /* لون كود مريح */
+            font-family: 'Consolas', 'Courier New', monospace;
+            color: #f7f0d4;
             overflow-x: auto;
-            font-size: 1.1rem;
+            font-size: 0.92rem;
+            line-height: 1.5;
         }
 
         .copy-btn {
-            position: absolute;
-            top: 10px;
-            left: 10px; /* يسار لأن النص إنجليزي */
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 5px;
+            background: linear-gradient(135deg, #bf953f 0%, #d4af37 50%, #aa771c 100%);
+            color: #ffffff;
+            border: 1px solid #fcf6ba;
+            padding: 6px 14px;
+            border-radius: 6px;
             cursor: pointer;
+            font-size: 0.82rem;
             font-weight: bold;
-            transition: background 0.3s;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
         }
 
         .copy-btn:hover {
-            background-color: var(--hover-color);
+            transform: scale(1.04);
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.5);
         }
 
-        /* تنسيق الشرح */
         .explanation-box {
-            background-color: var(--sidebar-bg);
+            background-color: var(--card-bg);
             padding: 20px;
-            border-radius: 10px;
-            border-right: 4px solid var(--primary-color);
-            line-height: 1.6;
-            font-size: 1.1rem;
+            border-radius: 12px;
+            border-right: 4px solid var(--gold-primary);
+            line-height: 1.7;
+            font-size: 0.92rem;
+            border: 1px solid var(--gold-border);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.08);
+            position: relative;
         }
 
-        /* رسالة البداية */
+        .explanation-box::before {
+            content: '📜';
+            position: absolute;
+            left: 15px;
+            top: 15px;
+            font-size: 1.2rem;
+            opacity: 0.5;
+        }
+
         .welcome-message {
             text-align: center;
-            margin-top: 20%;
-            font-size: 1.5rem;
-            color: #666;
+            margin-top: 15%;
+            padding: 30px;
+            background: #ffffff;
+            border-radius: 15px;
+            border: 1px dashed var(--gold-border);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            color: #665b4e;
+            font-size: 1rem;
         }
 
-        /* استجابة للهواتف */
-        @media (max-width: 768px) {
-            body {
-                flex-direction: column;
-            }
+        /* تحسين العرض للهواتف المحمولة */
+        @media (max-width: 600px) {
             .sidebar {
-                width: auto;
-                height: 200px;
-                border-left: none;
-                border-bottom: 2px solid var(--primary-color);
+                width: 130px;
+                padding: 12px 5px;
+            }
+            .lesson-btn {
+                font-size: 0.78rem;
+                padding: 9px 4px;
             }
             .main-content {
-                padding: 20px;
+                padding: 15px;
+            }
+            .gold-gradient-text {
+                font-size: 1.3rem;
+            }
+            pre {
+                font-size: 0.85rem;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- الواجهة الفرعية (القائمة الجانبية) -->
-    <div class="sidebar">
-        <h2>أكواد C++</h2>
-        <div id="buttonsList">
-            <!-- الأزرار ستضاف هنا تلقائياً -->
-        </div>
-    </div>
-
-    <!-- الواجهة الرئيسية -->
+    <!-- الواجهة الرئيسية (على اليمين) -->
     <div class="main-content">
         <div class="main-header">
-            <h1>مكتبة الذكاء الاصطناعي - C++</h1>
-            <p>اختر موضوعاً من القائمة لعرض الكود والشرح</p>
+            <div class="royal-badge">👑</div>
+            <h1 class="gold-gradient-text">المكتبة الملكية - C++</h1>
+            <div class="royal-divider">✦ ✨ ✦</div>
+            <p>منصة طلاب الذكاء الاصطناعي والأمن السيبراني</p>
         </div>
 
         <div id="contentArea">
             <div class="welcome-message" id="welcomeMsg">
-                يرجى اختيار كود من القائمة الجانبية لبدء التعلم.
+                👑 مرحباً بكم في المكتبة الملكية لأكواد C++<br>
+                <small style="color: #a08a6e; margin-top: 8px; display: inline-block;">👈 اختر درساً من القائمة الجانبية لعرض الكود والشرح التفصيلي.</small>
             </div>
             
             <div id="lessonContent" style="display: none;">
                 <div class="code-container">
-                    <button class="copy-btn" onclick="copyCode()">نسخ الكود</button>
+                    <div class="code-header">
+                        <span class="code-title">👑 C++ Source Code</span>
+                        <button class="copy-btn" onclick="copyCode()">✨ نسخ الكود</button>
+                    </div>
                     <pre><code id="codeBlock"></code></pre>
                 </div>
                 <div class="explanation-box" id="explanationBlock">
@@ -195,28 +300,27 @@
         </div>
     </div>
 
-    <!-- كود الجافاسكربت لعمل الموقع -->
+    <!-- الواجهة الفرعية الملكية (عمودية على اليسار) -->
+    <div class="sidebar">
+        <h2>👑 الأكواد</h2>
+        <div id="buttonsList"></div>
+    </div>
+
     <script>
-        // ======= منطقة إضافة الدروس =======
-        // أضف دروسك هنا بنفس الطريقة
-        
+        // منطقة الدروس والأكواد
         const lessons = {
             "lesson1": {
-                title: "الهيكل الأساسي - Main",
+                title: "الهيكل الأساسي",
                 code: "#include <iostream>\nusing namespace std;\n\nint main() {\n    // الكود يكتب هنا\n    return 0;\n}",
-                explanation: "هذا هو الهيكل الأساسي لأي برنامج بلغة C++.<br>- <b>#include &lt;iostream&gt;</b>: تستدعي المكتبة المسؤولة عن الإدخال والإخراج.<br>- <b>using namespace std;</b>: تسهل علينا كتابة الأوامر دون الحاجة لكتابة std:: قبل كل أمر.<br>- <b>int main()</b>: هي الدالة الرئيسية التي يبدأ منها تنفيذ البرنامج."
+                explanation: "<b>👑 الهيكل الأساسي للبرنامج:</b><br>- <b>#include &lt;iostream&gt;</b>: مكتبة الإدخال والإخراج.<br>- <b>using namespace std;</b>: اختصار أوامر المكتبة القياسية.<br>- <b>int main()</b>: دالة التنفيذ الرئيسية للبرنامج."
             },
             "lesson2": {
-                title: "جملة الطباعة - cout",
-                code: "#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << \"Hello, AI Students!\" << endl;\n    return 0;\n}",
-                explanation: "يستخدم الأمر <b>cout</b> لطباعة النصوص أو النتائج على الشاشة.<br>- النص المراد طباعته يجب أن يوضع بين علامتي تنصيص مزدوجة \"\".<br>- <b>endl</b>: تستخدم للنزول إلى سطر جديد بعد الطباعة."
+                title: "جملة الطباعة",
+                code: "#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << \"Hello AI & Cyber Security Students!\" << endl;\n    return 0;\n}",
+                explanation: "<b>👑 جملة الطباعة cout:</b><br>- <b>cout</b>: تستخدم لعرض النصوص والنتائج على الشاشة.<br>- <b>endl</b>: للنزول إلى سطر جديد."
             }
-            // لكي تضيف درساً جديداً، ضع فاصلة بعد القوس أعلاه، ثم انسخ القالب.
         };
 
-        // ==================================
-        
-        // الأكواد التشغيلية (لا تقم بتعديلها إلا إذا كنت تعرف ما تفعل)
         const buttonsList = document.getElementById('buttonsList');
         const welcomeMsg = document.getElementById('welcomeMsg');
         const lessonContent = document.getElementById('lessonContent');
@@ -224,7 +328,6 @@
         const explanationBlock = document.getElementById('explanationBlock');
         let currentCode = "";
 
-        // توليد الأزرار تلقائياً
         for (const key in lessons) {
             const btn = document.createElement('button');
             btn.className = 'lesson-btn';
@@ -233,33 +336,28 @@
             buttonsList.appendChild(btn);
         }
 
-        // عرض الدرس
         function showLesson(lessonKey, btnElement) {
-            // تفعيل لون الزر
             document.querySelectorAll('.lesson-btn').forEach(b => b.classList.remove('active'));
             btnElement.classList.add('active');
 
-            // إخفاء الترحيب وعرض المحتوى
             welcomeMsg.style.display = 'none';
             lessonContent.style.display = 'block';
 
-            // وضع البيانات
             currentCode = lessons[lessonKey].code;
             codeBlock.textContent = currentCode;
             explanationBlock.innerHTML = lessons[lessonKey].explanation;
         }
 
-        // دالة نسخ الكود
         function copyCode() {
             navigator.clipboard.writeText(currentCode).then(() => {
                 const btn = document.querySelector('.copy-btn');
                 const originalText = btn.textContent;
-                btn.textContent = 'تم النسخ!';
-                btn.style.backgroundColor = '#4caf50';
+                btn.textContent = '✔️ تم النسخ بنجاح';
+                btn.style.background = 'linear-gradient(135deg, #27ae60, #2ecc71)';
                 
                 setTimeout(() => {
                     btn.textContent = originalText;
-                    btn.style.backgroundColor = 'var(--primary-color)';
+                    btn.style.background = 'linear-gradient(135deg, #bf953f 0%, #d4af37 50%, #aa771c 100%)';
                 }, 2000);
             });
         }
