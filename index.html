@@ -684,21 +684,36 @@
 
             <div id="adminDashboardSection" style="display: none;">
                 <div style="display: flex; gap: 8px; margin-bottom: 12px;">
-                    <input type="text" id="adminSearchInput" class="form-input" placeholder="🔍 ابحث باسم الطالب..." oninput="filterAdminLogs()" style="padding: 8px 12px; font-size: 0.85rem;">
-                    <select id="adminDeptFilter" class="form-select" onchange="filterAdminLogs()" style="padding: 8px; font-size: 0.85rem; width: 140px;">
-                        <option value="">كل التخصصات</option>
-                        <option value="الذكاء الاصطناعي">الذكاء الاصطناعي</option>
-                        <option value="الأمن السيبراني">الأمن السيبراني</option>
-                        <option value="علوم الحاسوب">علوم الحاسوب</option>
-                        <option value="هندسة البرمجيات">هندسة البرمجيات</option>
-                        <option value="تقنية المعلومات">تقنية المعلومات</option>
-                    </select>
+                    <button class="btn-portal-primary" id="tabLogsBtn" onclick="switchAdminTab('logs')" style="padding: 8px; font-size: 0.85rem; margin-top:0;">📊 سجل الدرجات</button>
+                    <button class="btn-portal-admin" id="tabVisitorsBtn" onclick="switchAdminTab('visitors')" style="padding: 8px; font-size: 0.85rem; margin-top:0;">👥 سجل الزوار والدخول</button>
                 </div>
-                <h3 style="color: var(--gold-dark); font-size: 1.05rem; margin-bottom: 10px; border-bottom: 1px solid var(--gold-border); padding-bottom: 5px;">📊 سجل درجات الطلاب المنجزين:</h3>
-                <div id="adminLogsContainer" style="max-height: 230px; overflow-y: auto; background: var(--royal-bg); border: 1px solid var(--gold-border); padding: 10px; border-radius: 8px; font-size: 0.86rem; color: var(--text-dark);">
-                    <!-- نتائج الطلاب -->
+
+                <div id="adminLogsTabContent">
+                    <div style="display: flex; gap: 8px; margin-bottom: 12px;">
+                        <input type="text" id="adminSearchInput" class="form-input" placeholder="🔍 ابحث باسم الطالب..." oninput="filterAdminLogs()" style="padding: 8px 12px; font-size: 0.85rem;">
+                        <select id="adminDeptFilter" class="form-select" onchange="filterAdminLogs()" style="padding: 8px; font-size: 0.85rem; width: 140px;">
+                            <option value="">كل التخصصات</option>
+                            <option value="الذكاء الاصطناعي">الذكاء الاصطناعي</option>
+                            <option value="الأمن السيبراني">الأمن السيبراني</option>
+                            <option value="علوم الحاسوب">علوم الحاسوب</option>
+                            <option value="هندسة البرمجيات">هندسة البرمجيات</option>
+                            <option value="تقنية المعلومات">تقنية المعلومات</option>
+                        </select>
+                    </div>
+                    <h3 style="color: var(--gold-dark); font-size: 1.05rem; margin-bottom: 10px; border-bottom: 1px solid var(--gold-border); padding-bottom: 5px;">📊 سجل درجات الطلاب المنجزين:</h3>
+                    <div id="adminLogsContainer" style="max-height: 230px; overflow-y: auto; background: var(--royal-bg); border: 1px solid var(--gold-border); padding: 10px; border-radius: 8px; font-size: 0.86rem; color: var(--text-dark);">
+                        <!-- نتائج الطلاب -->
+                    </div>
+                    <button class="btn-portal-admin" onclick="clearAdminLogs()" style="margin-top: 12px; background: rgba(192, 57, 43, 0.1); color: var(--error-color); border-color: var(--error-color);">مسح كافة السجلات 🗑️</button>
                 </div>
-                <button class="btn-portal-admin" onclick="clearAdminLogs()" style="margin-top: 12px; background: rgba(192, 57, 43, 0.1); color: var(--error-color); border-color: var(--error-color);">مسح كافة السجلات 🗑️</button>
+
+                <div id="adminVisitorsTabContent" style="display: none;">
+                    <h3 style="color: var(--gold-dark); font-size: 1.05rem; margin-bottom: 10px; border-bottom: 1px solid var(--gold-border); padding-bottom: 5px;">👥 سجل أسماء من دخل إلى المنصة (مجرد الدخول):</h3>
+                    <div id="adminVisitorsContainer" style="max-height: 230px; overflow-y: auto; background: var(--royal-bg); border: 1px solid var(--gold-border); padding: 10px; border-radius: 8px; font-size: 0.86rem; color: var(--text-dark);">
+                        <!-- زوار المنصة -->
+                    </div>
+                    <button class="btn-portal-admin" onclick="clearAdminVisitors()" style="margin-top: 12px; background: rgba(192, 57, 43, 0.1); color: var(--error-color); border-color: var(--error-color);">مسح سجل الزوار 🗑️</button>
+                </div>
             </div>
         </div>
     </div>
@@ -1047,7 +1062,6 @@
             }
         };
 
-        // بنك أسئلة الاختبار النصفي المتقدم والمرتفع الصعوبة (تتبع الكود والأولويات المركبة)
         const midtermQuizBank = [
             { 
                 q: "ما المخرجات الدقيقة الناتجة عن تنفيذ كود التداخل والشروط الرياضية التالي؟", 
@@ -1151,6 +1165,10 @@
 
             if (name && dept && uni) {
                 currentStudent = { name, dept, uni };
+                
+                // حفظ زيارة الطالب فور الدخول مباشرة
+                saveVisitorToStorage(name, dept, uni);
+
                 document.getElementById('displayStudentName').textContent = name;
                 document.getElementById('displayStudentDept').textContent = dept;
                 document.getElementById('displayStudentUni').textContent = uni;
@@ -1167,6 +1185,17 @@
             }
         }
 
+        function saveVisitorToStorage(name, dept, uni) {
+            let visitors = JSON.parse(localStorage.getItem('royal_visitors_logs') || '[]');
+            visitors.unshift({
+                name: name,
+                dept: dept,
+                uni: uni,
+                date: new Date().toLocaleString('ar-EG')
+            });
+            localStorage.setItem('royal_visitors_logs', JSON.stringify(visitors));
+        }
+
         function logoutStudent() {
             document.getElementById('mainAppContainer').style.display = 'none';
             document.getElementById('portalWrapper').style.display = 'flex';
@@ -1174,10 +1203,33 @@
 
         function openAdminModal() {
             document.getElementById('adminModalOverlay').classList.add('active');
+            switchAdminTab('logs');
         }
 
         function closeAdminModal() {
             document.getElementById('adminModalOverlay').classList.remove('active');
+        }
+
+        function switchAdminTab(tab) {
+            const logsBtn = document.getElementById('tabLogsBtn');
+            const visitorsBtn = document.getElementById('tabVisitorsBtn');
+            const logsContent = document.getElementById('adminLogsTabContent');
+            const visitorsContent = document.getElementById('adminVisitorsTabContent');
+
+            if (tab === 'logs') {
+                logsBtn.className = 'btn-portal-primary';
+                visitorsBtn.className = 'btn-portal-admin';
+                logsContent.style.display = 'block';
+                visitorsContent.style.display = 'none';
+                loadAdminLogs();
+            } else {
+                visitorsBtn.className = 'btn-portal-primary';
+                logsBtn.className = 'btn-portal-admin';
+                visitorsContent.style.display = 'block';
+                logsContent.style.display = 'none';
+                loadAdminVisitors();
+            }
+            playAudioFeedback('click');
         }
 
         function openCertificateModal(score, quizTypeName) {
@@ -1230,7 +1282,6 @@
             });
             localStorage.setItem('royal_student_logs', JSON.stringify(logs));
             
-            // تحديث رتبة الطالب
             if(score >= 90) document.getElementById('studentRankBadge').textContent = "خبير أنظمة 💎";
             else if(score >= 75) document.getElementById('studentRankBadge').textContent = "مهندس متمكن 🚀";
             else document.getElementById('studentRankBadge').textContent = "مهندس متدرب 🌟";
@@ -1243,7 +1294,7 @@
         function displayLogs(logs) {
             const container = document.getElementById('adminLogsContainer');
             if (logs.length === 0) {
-                container.innerHTML = '<p style="text-align: center; color: var(--gold-dark);">لا يوجد سجلات مخزنة حتى الآن.</p>';
+                container.innerHTML = '<p style="text-align: center; color: var(--gold-dark);">لا يوجد سجلات درجات حتى الآن.</p>';
             } else {
                 let html = '';
                 logs.forEach((log, i) => {
@@ -1253,6 +1304,32 @@
                     </div>`;
                 });
                 container.innerHTML = html;
+            }
+        }
+
+        function loadAdminVisitors() {
+            const container = document.getElementById('adminVisitorsContainer');
+            const visitors = JSON.parse(localStorage.getItem('royal_visitors_logs') || '[]');
+            if (visitors.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: var(--gold-dark);">لا يوجد زوار سجلوا دخولهم حتى الآن.</p>';
+            } else {
+                let html = '';
+                visitors.forEach((vis, i) => {
+                    html += `<div style="border-bottom: 1px dashed var(--gold-border); padding: 8px 0;">
+                        <b>#${i+1} ${vis.name}</b><br>
+                        <span style="color: var(--gold-dark);">🏛️ الجامعة: ${vis.uni}</span><br>
+                        <span style="color: var(--text-dark);">🎓 التخصص: ${vis.dept}</span>
+                        <div style="font-size: 0.75rem; color: #7f6c58;">⏰ وقت الدخول للمنصة: ${vis.date}</div>
+                    </div>`;
+                });
+                container.innerHTML = html;
+            }
+        }
+
+        function clearAdminVisitors() {
+            if (confirm("هل أنت تأكد من رغبتك في مسح سجل الزوار بالكامل؟")) {
+                localStorage.removeItem('royal_visitors_logs');
+                loadAdminVisitors();
             }
         }
 
